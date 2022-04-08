@@ -30,7 +30,16 @@ import org.junit.jupiter.api.Test;
  */
 public class _02_BinaryToDecimal {
     int convertBinaryStringToDecimalInt(String binStr) {
-        return -1;
+    	int decimalTranslation = 0;
+    	int inverseIterator = 1;
+    	
+    	for(int i = binStr.length()-1; i >= 0; i--) {
+    		//System.out.println(binStr.charAt(i));
+    		int ohGod = Integer.parseInt(binStr.charAt(i)+"");
+    		decimalTranslation += ohGod*inverseIterator;
+    		inverseIterator*=2;
+    	}
+        return decimalTranslation;
     }
 
     @Test
