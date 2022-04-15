@@ -40,6 +40,7 @@ public class _01_IntroToBinary {
          * The '0b' prefix before a binary number tells Java the following
          * digits are in binary. By default the digits are decimal.
          */
+    	
         int binaryNum = 0b1001;
         int decimalNum = 1001;
         System.out.println("Binary num ....: " + binaryNum);
