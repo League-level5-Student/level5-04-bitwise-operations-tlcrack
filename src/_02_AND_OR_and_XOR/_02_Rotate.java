@@ -29,8 +29,25 @@ import org.junit.jupiter.api.Test;
 public class _02_Rotate {
     
     int rotateLeft(int value, int rotateAmount) {
+    	System.out.println(Integer.toBinaryString(value));
+    	System.out.println(value << rotateAmount);
+    	System.out.println(value >> 32 - rotateAmount);
     	int shiftValue = value << rotateAmount;
-    	shiftValue += value >> 32 - rotateAmount;
+    	if(value<0) {
+    		shiftValue += value >>> 32 - rotateAmount;
+    	}
+    	else {
+    		shiftValue += value >> 32 - rotateAmount;
+    	}
+    	
+    	/*for(int i = 0; i < rotateAmount; i++) {
+    		int j = value & i;
+    		value <<= i;
+    		if(i==1) {
+    			value = 
+    		}
+    		
+    	}*/
         return shiftValue;
     }
     
