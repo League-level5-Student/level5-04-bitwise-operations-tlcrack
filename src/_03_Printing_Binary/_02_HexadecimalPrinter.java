@@ -52,6 +52,11 @@ public class _02_HexadecimalPrinter implements ActionListener {
      * You don't have to handle negative numbers unless you want the challenge!
      */
     String binaryToHex(String binaryStr) {
+    	int bin = Integer.parseInt(binaryStr);
+    	for(int i = 0; i < 32; i++) {
+    		int j = bin>>(31-i);
+    		j&=1;
+    	}
         return "-";
     }
     
