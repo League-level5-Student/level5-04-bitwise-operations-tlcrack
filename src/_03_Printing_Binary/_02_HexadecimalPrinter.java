@@ -52,16 +52,58 @@ public class _02_HexadecimalPrinter implements ActionListener {
      * You don't have to handle negative numbers unless you want the challenge!
      */
     String binaryToHex(String binaryStr) {
-    	int bin = Integer.parseInt(binaryStr);
-    	for(int i = 0; i < 32; i++) {
-    		int j = bin>>(31-i);
-    		j&=1;
+    	int decimalTranslation = 0;
+    	String hexTranslation = "";
+    	int inverseIterator = 1;
+    	
+    	for(int i = binaryStr.length()-1; i >= 0; i--) {
+    		int ohGod = Integer.parseInt(binaryStr.charAt(i)+"");
+    		decimalTranslation += ohGod*inverseIterator;
+    		inverseIterator*=2;
     	}
-        return "-";
+    	int iterationCount = decimalTranslation;
+    	for(int i = 0; i < 1 + iterationCount/16; i++) {
+    		if(decimalTranslation==0) {
+    			break;
+    		}
+    		int j = decimalTranslation%16;
+    		if(j<10) {
+    			hexTranslation = j + hexTranslation;
+    		}
+    		else if(j==10) {
+    			hexTranslation = "A" + hexTranslation;
+    		}
+    		else if(j==11) {
+    			hexTranslation = "B" + hexTranslation;
+    		}
+    		else if(j==12) {
+    			hexTranslation = "C" + hexTranslation;
+    		}
+    		else if(j==13) {
+    			hexTranslation = "D" + hexTranslation;
+    		}
+    		else if(j==14) {
+    			hexTranslation = "E" + hexTranslation;
+    		}
+    		else if(j==15) {
+    			hexTranslation = "F" + hexTranslation;
+    		}
+    		decimalTranslation/=16;
+    	}
+    	hexTranslation = "0x" + hexTranslation;
+        return hexTranslation;
     }
     
     String binaryToDec(String binaryStr) {
-        return "-";
+    	int decimalTranslation = 0;
+    	int inverseIterator = 1;
+    	
+    	for(int i = binaryStr.length()-1; i >= 0; i--) {
+    		int ohGod = Integer.parseInt(binaryStr.charAt(i)+"");
+    		decimalTranslation += ohGod*inverseIterator;
+    		inverseIterator*=2;
+    	}
+        return decimalTranslation + "";
     }
 
     /*
@@ -69,10 +111,19 @@ public class _02_HexadecimalPrinter implements ActionListener {
      */
     String binaryToAscii(String binaryStr) {
         if (binaryStr.length() != 8) {
-            return "-";
+            return "(value must be eight digits)";
         }
-
-        return "-";
+        int decimalTranslation = 0;
+    	int inverseIterator = 1;
+    	
+    	for(int i = binaryStr.length()-1; i >= 0; i--) {
+    		int ohGod = Integer.parseInt(binaryStr.charAt(i)+"");
+    		decimalTranslation += ohGod*inverseIterator;
+    		inverseIterator*=2;
+    	}
+        char c = (char) decimalTranslation;
+        
+        return c + "";
     }
     
     public static void main(String[] args) {
