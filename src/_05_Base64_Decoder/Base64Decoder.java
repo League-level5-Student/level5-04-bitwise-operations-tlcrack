@@ -56,6 +56,11 @@ public class Base64Decoder {
     //1. Complete this method so that it returns the index in
     //   the base64Chars array that corresponds to the passed in char.
     public static byte convertBase64Char(char c){
+    		for(int i = 0; i < base64Chars.length; i++) {
+    			if(base64Chars[i]==c) {
+    				return (byte) i;
+    			}
+    		}
         return 0;
     }
 
@@ -63,12 +68,67 @@ public class Base64Decoder {
     //   characters long and return an array of 3 bytes (24 bits). The byte
     //   array should be the binary value of the encoded characters.
     public static byte[] convert4CharsTo24Bits(String s){
-        return null;
+    		byte[] convert = new byte[3];
+    		int byteProgression = 0;
+    		for(int i = s.length()-1; i>=0; i--) {
+    			for(int j = 0; j < base64Chars.length; j++) {
+    				if(s.charAt(i)==base64Chars[j]) {
+    					if(byteProgression==0) {
+    						convert[0] = (byte) j;
+    					}
+    					else if(byteProgression==6) {
+    						convert[0] = (byte) ((byte) j<<6);
+    						convert[1] = (byte) ((byte) j>>>6);
+    					}
+    					else if(byteProgression==12) {
+    						convert[1] = (byte) ((byte) j<<4);
+    						convert[2] = (byte) ((byte) j>>>4);
+    					}
+    					else if(byteProgression==18) {
+    						convert[2] = (byte) ((byte) j<<2);
+    					}
+    					else if(byteProgression==24) {
+    						break;
+    					}
+    					byteProgression+=6;
+    				}
+    			}
+    		}
+    		
+        return convert;
     }
 
     //3. Complete this method so that it takes in a string of any length
     //   and returns the full byte array of the decoded base64 characters.
     public static byte[] base64StringToByteArray(String file) {
-        return null;
+		byte[] convert = new byte[file.length()*3/4];
+		int byteProgression = 0;
+		int iterations = 0;
+		for(int i = file.length()-1; i>=0; i--) {
+			for(int j = 0; j < base64Chars.length; j++) {
+				if(file.charAt(i)==base64Chars[j]) {
+					if(byteProgression==0) {
+						convert[(iterations*3)+0] = (byte) i;
+					}
+					if(byteProgression==6) {
+						convert[(iterations*3)+0] = (byte) ((byte) i<<6);
+						convert[(iterations*3)+1] = (byte) ((byte) i>>>6);
+					}
+					if(byteProgression==12) {
+						convert[(iterations*3)+1] = (byte) ((byte) i<<4);
+						convert[(iterations*3)+2] = (byte) ((byte) i>>>4);
+					}
+					if(byteProgression==18) {
+						convert[(iterations*3)+2] = (byte) ((byte) i<<2);
+					}
+					byteProgression+=6;
+					if(byteProgression==24) {
+						byteProgression = 0;
+					}
+				}
+			}
+		}
+		
+    return convert;
     }
 }
