@@ -75,7 +75,8 @@ public class LightSwitches implements GameControlScene {
      * index = 0        // turn off blue only (set bit 0 = 0)
      */
     void turnLightOff(int index) {
-        lightsOnOff ^= (int) Math.pow(2, index);
+    		
+        lightsOnOff &= ~(int) Math.pow(2, index);
     }
     
     /*
@@ -91,7 +92,9 @@ public class LightSwitches implements GameControlScene {
      * lightsBitmap = 0b10000001  // lights 0, 7 off
      */
     void turnMultiLightsOff(int lightsBitmap) {
-        lightsOnOff^=lightsBitmap;
+    		
+        lightsOnOff&=~lightsBitmap;
+        
     }
     
     /*
@@ -104,7 +107,7 @@ public class LightSwitches implements GameControlScene {
      *                               orange(3) and yellow(4) on
      */
     void toggleLights(int lightsBitmap) {
-        
+    	lightsOnOff^=lightsBitmap;
     }
     
     void runLightSequence1() {
